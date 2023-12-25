@@ -1,3 +1,4 @@
+
 try
 {
     Console.Write("Введите название книги: ");
@@ -13,11 +14,11 @@ try
     Console.WriteLine(book.FullInfo(name));
 }
 
-catch(Exception ex)
-{ Console.WriteLine(ex.Message);}
+catch (Exception ex)
+{ Console.WriteLine(ex.Message); }
 class Book
 {
-    private string name;
+    private string? name;
     private int sheets;
     private decimal price;
 
@@ -67,28 +68,26 @@ class Book
 class Library : Book
 {
 
-    private string? name;
-    private int sheets;
-    private decimal price;
+    
 
-    public string? Name { get { return name; } set { if (value != null) name = value; } }
+    public string? Name { get { return base.Name; } set { if (value != null) base.Name = value; } }
 
     public int Sheets
     {
-        get { return sheets; }
-        set { if (value >= 0) sheets = value; }
+        get { return base.Sheets; }
+        set { if (value >= 0) base.Sheets = value; }
     }
 
     public decimal Price
     {
-        get { return price; }
-        set { if (value >= 0) price = value; }
+        get { return base.Price; }
+        set { if (value >= 0) base.Price = value; }
     }
 
     public string Discount(decimal Price) // Так как не было в задании указано критериев скидки, я сделал её произвольно.
-    { 
+    {
         Random random = new Random();
-        int a = random.Next(0,21);
+        int a = random.Next(0, 21);
         return $"Стоимость книги {Name} с учётом скидки ({a}%) составляет {(Price - (Price * a / 100)):F2}.";
     }
 
@@ -96,10 +95,10 @@ class Library : Book
     {
         return $"Название книги: {Name}, количество страниц: {Sheets}, стоимость без учёта скидки: {Price}." + Discount(Price);
     }
-    public Library(string name, int sheets, decimal price) : base(name, sheets, price)
+    public Library(string? name, int sheets, decimal price) : base(name, sheets, price)
     {
-        this.name = base.Name;
-        this.sheets = base.Sheets;
-        this.price = base.Price;
+        this.Name = base.Name;
+        this.Sheets = base.Sheets;
+        this.Price = base.Price;
     }
 }
